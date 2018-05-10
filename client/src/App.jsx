@@ -8,7 +8,7 @@ class App extends Component {
     this._handleResponse = this._handleResponse.bind(this);
     this._req = new XMLHttpRequest();
     this._req.addEventListener('load', this._handleResponse);
-    this._req.open('GET', 'http://0.0.0.0:8080/api/persona/1');
+    this._req.open('GET', 'http://personae-gratae-personae-gratae.7e14.starter-us-west-2.openshiftapps.com/api/persona/1');
     this.state = {
       loading: true,
       persona: {}
@@ -25,7 +25,6 @@ class App extends Component {
         persona: JSON.parse(this._req.responseText)
       }
     })
-    console.dir(this._req.response);
   }
 
   render() {
