@@ -62,10 +62,6 @@ app.get('/', function (req, res) {
     res.render('index.html')
 });
 
-app.get('/personas', function(req, res){
-
-})
-
 // error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
