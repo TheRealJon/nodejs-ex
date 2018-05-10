@@ -1,11 +1,13 @@
 //  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
-    morgan  = require('morgan');
+    morgan  = require('morgan'),
+    path = require('path');
+
 
 Object.assign=require('object-assign')
 
-app.engine('html', require('ejs').renderFile);
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(morgan('combined'))
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -59,6 +61,10 @@ var initDb = function(callback) {
 app.get('/', function (req, res) {
     res.render('index.html')
 });
+
+app.get('/personas', function(req, res){
+
+})
 
 // error handling
 app.use(function(err, req, res, next){

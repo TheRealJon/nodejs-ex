@@ -1,0 +1,62 @@
+{
+  "id": 1,
+  "name": "First Name",
+  "job-title": "Primary responsibility",
+  "quote": "If this persona had one or two sentences to say about him/herself and the work he/she does, what would it be?",
+  "skills": [
+    {
+      "name": "Skill 1",
+      "rating": 5
+    },
+    {
+      "name": "Skill 2",
+      "rating": 4
+    },
+    {
+      "name": "Years Exp.",
+      "rating": 4
+    }
+  ],
+  "photo":  {
+    "url": "https://lh4.googleusercontent.com/VmVnTYDJspW-kvae0IuCQK1tJ_awlpnNJTxUtz4Wh5RllZehQQwfT0xLJKslbAmKpwwBoyvfv9quWnaTTbyTtpmaaRp1oq45ZFAVhkaGe-Cm-nUyI25rhkSlA780E96gWsgeZJJpBqs",
+    "format": "jpeg",
+    "dataURI": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QB+RXhpZgAASUkqAAgAAAACADEBAgAHAAAAJ..."
+  },
+  "keys-to-success": [
+    "What are the most important things this persona is trying to accomplish?",
+    "Include both day-to-day, and long-term",
+    "It might also be appropriate to mention a primary motivation here as well.",
+    "Include key area(s) of support needed from other personas"
+  ],
+  "dangers": [
+    "What obstacles does this persona encounter that obscure their Keys to Success?",
+    "What obstacles exist that the persona may not even know about, but will cause trouble in the future?",
+    "What are some things that must never happen, or that this persona must never do?"
+  ],
+  "day-in-the-life": {
+    "summary": "Include a quick summary of the most commons activities to accomplish the goals.",
+    "activities": [
+      {
+        "name": "developing",
+        "percentage":  29.3
+      },
+      {
+        "name": "lunch",
+        "percentage": 12.2
+      },
+      {
+        "name": "maintenance",
+        "percentage": 43.9
+      },
+      {
+        "name": "scrum",
+        "percentage": 14.6
+      }
+    ]
+  },
+  "network": [
+    2,
+    4,
+    7
+  ]
+}
