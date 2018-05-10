@@ -3,6 +3,7 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan'),
     path = require('path');
+    persona = require('./data/persona.json');
 
 
 Object.assign=require('object-assign')
@@ -58,8 +59,14 @@ var initDb = function(callback) {
   });
 };
 
+
 app.get('/', function (req, res) {
-    res.render('index.html')
+  res.render('index.html')
+});
+
+app.get('/api/persona/:personaId', function(req, res){
+  res.header("Access-Control-Allow-Origin", "*");
+  return res.json(persona);
 });
 
 // error handling
