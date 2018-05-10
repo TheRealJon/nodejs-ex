@@ -21,7 +21,7 @@
     "build-client": "(cd client && yarn && yarn run build)",
     "start": "node server.js",
     "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js",
-    "post-install": "npm run build-client"
+    "postinstall": "npm run build-client"
   },
   "repository": {
     "type": "git",
