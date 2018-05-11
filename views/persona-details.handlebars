@@ -1,3 +1,97 @@
 {{!-- Maybe add horizontal nav and breadcrumbs here --}}
 
 <h1>Detail view for {{name}}'s persona</h1>
+
+<div class="container-fluid">
+  <ol class="breadcrumb">
+    <li>
+      <a href="#0">Back to Persona List</a>
+    </li>
+    <li class="active"> 
+      <strong>Persona Details: <b>{{ name }}</b></strong>
+    </li>
+  </ol>
+
+  <div class="pg-persona">
+    <div class="pg-roles-title">
+      <h2>Roles and Responsibilities</h2>
+    </div>
+    <div class="pg-roles">
+      <h4 class="title">Job Title</h4>
+      <div>Primary responsibility</div>
+    </div>
+
+    <div class="pg-quote-title">
+        <h2>Quote</h2>
+    </div>
+    <div class="pg-quote">
+            "If this person had one thing to say"
+    </div>
+
+    <div class="pg-skills-title">
+        <h2>Background & Skills</h2>
+    </div>
+    <div class="pg-skills">
+      <div class="pg-skill">
+        <div class="pg-skill__title">Skill 1</div>
+        <div class="pg-skill__value">3</div>
+      </div>
+      <div class="pg-skill">
+        <div class="pg-skill__title">Skill 2</div>
+        <div class="pg-skill__value">5</div>
+      </div>
+      <div class="pg-skill">
+        <div class="pg-skill__title">Another skill</div>
+        <div class="pg-skill__value">1</div>
+      </div>
+    </div>
+
+    <div class=pg-successes-title">
+      <h2>Keys to Sucess</h2>
+    </div>
+    <div class="pg-successes">
+      <ul>
+        <li>success factor</li>
+        <li>success factor</li>
+        <li>success factor</li>
+        <li>success factor</li>
+        <li>success factor</li>
+      </ul>
+    </div>
+
+    <div class="pg-dangers-title">
+        <h2>Dangers</h2>
+    </div>
+    <div class="pg-dangers">
+      <ul>
+        <li>danger</li>
+        <li>danger</li>
+        <li>danger</li>
+        <li>danger</li>
+      </ul>
+    </div>
+
+    <div class="pg-id-title">
+        <h2>{{name}}</h2>
+    </div>
+    <div class="pg-id">
+        <img src="/img/aimee_portrait.jpg" alt="Picture of {{ame}}">
+    </div>
+      
+    <div class="pg-day-title">
+        <h2>A Day in the Life</h2>
+    </div>
+    <div class="pg-day">
+      <div class="pg-day__summary">Include a quick summary</div>
+      <div class="pg-day__chart">Chart</div>
+    </div>
+  
+    <div class="pg-network-title">
+        <h2>Network</h2>
+    </div>
+      <div class="pg-network">
+        network
+      </div>
+    </div>
+
+  </div><!-- container -->

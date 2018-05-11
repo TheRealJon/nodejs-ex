@@ -1,11 +1,82 @@
 // Create any partial less files you want and import them here or just import patternfly styles and add your less after
+//import patternfly LESS variables into your project
+// @import "../node_modules/patternfly/dist/less/patternfly.less";
+// @import "../node_modules/patternfly/dist/less/patternfly-additions.less";
 
 @import '../node_modules/patternfly/dist/less/patternfly.less';
 @import '../node_modules/patternfly/dist/less/patternfly-additions.less';
 
-// Just for testing
-body {
-  background: lightblue;
+* {
+  border: 1px solid red;
 }
 
+
 // stuff
+.list-view-pf-left img {
+  max-width: 2em;
+}
+
+.pg-persona {
+  background-color: bisque;
+  display:grid;
+  grid-template:  "roles-title quote-title quote-title  "
+                  "roles quote quote  "
+                  "skills-title success-title dangers-title"
+                  "skills success dangers"
+                  "name-title day-title network-title"
+                  "name day network";
+  grid-template-columns: 1fr 2fr 2fr; 
+  grid-gap: 1em;
+  > *{
+      background-color: white;
+  }
+}
+
+.pg-roles-title {
+  grid-area: roles-title;
+}
+.pg-quote-title {
+  grid-area: quote-title;
+}
+.pg-skills-title {
+  grid-area: skills-title;
+}
+.pg-success-title {
+  grid-area: success-title;
+}
+.pg-dangers-title {
+  grid-area: dangers-title;
+}
+.pg-name-title {
+  grid-area: name-title;
+}
+.pg-day-title {
+  grid-area: day-title;
+}
+.pg-network-title {
+  grid-area: network-title;
+}
+.pg-roles {
+  grid-area: roles;
+}
+.pg-quote {
+  grid-area: quote;
+}
+.pg-skills {
+  grid-area: skills;
+}
+.pg-success {
+  grid-area: success;
+}
+.pg-dangers {
+  grid-area: dangers;
+}
+.pg-name {
+  grid-area: name;
+}
+.pg-day {
+  grid-area: day;
+}
+.pg-network {
+  grid-area: network;
+}
