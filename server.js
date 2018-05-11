@@ -79,9 +79,13 @@ app.get('/persona/details', function(req, res){
   res.render('persona-details', persona);
 })
 
-// TODO implement endpoint to create new persona in mongodb
-app.post('/create', function(req, res){
+app.get('/create/persona', function(req, res){
+  res.render('create-persona');
+});
 
+// TODO implement endpoint to create new persona in mongodb
+app.post('/create/persona', function(req, res){
+  console.log(req.body);
 });
 
 // error handling
