@@ -4,10 +4,6 @@
     <meta charset="utf-8">
     <title>Personae Gratae</title>
 
-    {{!-- <link rel="stylesheet" href="/node_modules/patternfly/dist/css/patternfly.css">
-    <link rel="stylesheet" href="/node_modules/patternfly/dist/css/patternfly-additions.css"> --}}
-    {{!-- <link rel="stylesheet" href="/assets/css/patternfly.css">
-    <link rel="stylesheet" href="/assets/css/patternfly-additions.css"> --}}
     <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
@@ -77,27 +73,27 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-primary">
-        <li>
+        {{!-- <li>
           <a href="index.html">Dashboard</a>
-        </li>
+        </li> --}}
         <li class="active">
-          <a href="persona-list.html">Persona List</a>
+          <a href="/">Persona List</a>
         </li>
         <li class="">
-            <a href="persona-card.html">Persona Card</a>
+            <a href="/persona/card">Persona Card</a>
         </li>
-        <li class="">
+        {{!-- <li class="">
           <a href="empty.html">Empty State</a>
+        </li> --}}
+        <li class="">
+          <a href="/persona/details">Persona Details</a>
         </li>
         <li class="">
-          <a href="persona-details.html">Persona Details</a>
+          <a href="/create">Add/edit persona</a>
         </li>
-        <li class="">
-          <a href="persona-add.html">Add/edit persona</a>
-        </li>
-        <li class="">
-          <a href="persona-output.html">Persona output</a>
-        </li>
+        {{!-- <li class="">
+          <a href="/persona-output.html">Persona output</a>
+        </li> --}}
       </ul>
 
     </div>

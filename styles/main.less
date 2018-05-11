@@ -6,18 +6,12 @@
 @import '../node_modules/patternfly/dist/less/patternfly.less';
 @import '../node_modules/patternfly/dist/less/patternfly-additions.less';
 
-* {
-  border: 1px solid red;
-}
-
-
 // stuff
 .list-view-pf-left img {
   max-width: 2em;
 }
 
 .pg-persona {
-  background-color: bisque;
   display:grid;
   grid-template:  "roles-title quote-title quote-title  "
                   "roles quote quote  "
@@ -26,34 +20,38 @@
                   "name-title day-title network-title"
                   "name day network";
   grid-template-columns: 1fr 2fr 2fr; 
-  grid-gap: 1em;
-  > *{
-      background-color: white;
+  grid-column-gap: 1em;
+  > * {
+      background-color: @color-pf-black-150;
   }
 }
 
-.pg-roles-title {
+.pg-title {
+  align-self: end;
+  background-color: inherit;
+}
+.pg-title--roles {
   grid-area: roles-title;
 }
-.pg-quote-title {
+.pg-title--quote {
   grid-area: quote-title;
 }
-.pg-skills-title {
+.pg-title--skills {
   grid-area: skills-title;
 }
-.pg-success-title {
+.pg-title--success {
   grid-area: success-title;
 }
-.pg-dangers-title {
+.pg-title--dangers {
   grid-area: dangers-title;
 }
-.pg-name-title {
+.pg-title--name {
   grid-area: name-title;
 }
-.pg-day-title {
+.pg-title--day {
   grid-area: day-title;
 }
-.pg-network-title {
+.pg-title--network {
   grid-area: network-title;
 }
 .pg-roles {

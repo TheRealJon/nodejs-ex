@@ -1,7 +1,5 @@
 {{!-- Maybe add horizontal nav and breadcrumbs here --}}
 
-<h1>Detail view for {{name}}'s persona</h1>
-
 <div class="container-fluid">
   <ol class="breadcrumb">
     <li>
@@ -13,28 +11,28 @@
   </ol>
 
   <div class="pg-persona">
-    <div class="pg-roles-title">
-      <h2>Roles and Responsibilities</h2>
+    <div class="pg-title pg-title--roles">
+      <h3>Roles and Responsibilities</h3>
     </div>
     <div class="pg-roles">
       <h4 class="title">Job Title</h4>
-      <div>Primary responsibility</div>
+      <div>{{jobTitle}}</div>
     </div>
 
-    <div class="pg-quote-title">
-        <h2>Quote</h2>
+    <div class="pg-title pg-title--quote">
+        <h3>Quote</h3>
     </div>
     <div class="pg-quote">
-            "If this person had one thing to say"
+            {{quote}}
     </div>
 
-    <div class="pg-skills-title">
-        <h2>Background & Skills</h2>
+    <div class="pg-title pg-title--skills">
+        <h3>Background & Skills</h3>
     </div>
     <div class="pg-skills">
       <div class="pg-skill">
-        <div class="pg-skill__title">Skill 1</div>
-        <div class="pg-skill__value">3</div>
+        <div class="pg-skill__title">{{skills.name}}</div>
+        <div class="pg-skill__value">{{skills.rating}}</div>
       </div>
       <div class="pg-skill">
         <div class="pg-skill__title">Skill 2</div>
@@ -46,51 +44,56 @@
       </div>
     </div>
 
-    <div class=pg-successes-title">
-      <h2>Keys to Sucess</h2>
+    <div class="pg-title pg-title--successes">
+      <h3>Keys to Sucess</h3>
     </div>
     <div class="pg-successes">
       <ul>
-        <li>success factor</li>
-        <li>success factor</li>
-        <li>success factor</li>
-        <li>success factor</li>
-        <li>success factor</li>
+        {{#each keysToSuccess}}
+        <li>{{this}}</li>
+        {{/each}}
       </ul>
     </div>
 
-    <div class="pg-dangers-title">
-        <h2>Dangers</h2>
+    <div class="pg-title pg-title--dangers">
+        <h3>Dangers</h3>
     </div>
     <div class="pg-dangers">
       <ul>
-        <li>danger</li>
-        <li>danger</li>
-        <li>danger</li>
-        <li>danger</li>
+        {{#each dangers}}
+        <li>{{this}}</li>
+        {{/each}}
       </ul>
     </div>
 
-    <div class="pg-id-title">
-        <h2>{{name}}</h2>
+    <div class="pg-title pg-title--id">
+        <h3>{{name}}</h3>
     </div>
     <div class="pg-id">
-        <img src="/img/aimee_portrait.jpg" alt="Picture of {{ame}}">
+        <img src="{{photo}}" alt="Picture of {{name}}">
     </div>
       
-    <div class="pg-day-title">
-        <h2>A Day in the Life</h2>
+    <div class="pg-title pg-title--day">
+        <h3>A Day in the Life</h3>
     </div>
     <div class="pg-day">
-      <div class="pg-day__summary">Include a quick summary</div>
-      <div class="pg-day__chart">Chart</div>
+      <div class="pg-day__summary">{{dayInTheLife.summary}}</div>
+      <div class="pg-day__chart">
+        <ul>
+          {{#each dayInTheLife.activities}}
+            <li>{{this.name}} {{this.percentage}}</li>
+          {{/each}}
+        </ul>
+      </div>
     </div>
   
-    <div class="pg-network-title">
-        <h2>Network</h2>
+    <div class="pg-title pg-title--network">
+        <h3>Network</h3>
     </div>
       <div class="pg-network">
-        network
+          {{#each network}}
+            <li>persona with id: {{this}}</li>
+          {{/each}}
       </div>
     </div>
 
