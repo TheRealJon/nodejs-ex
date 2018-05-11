@@ -1,15 +1,15 @@
 //  OpenShift sample Node application
-var express = require('express'),
+const express = require('express'),
     app     = express(),
     morgan  = require('morgan'),
-    path = require('path');
-    persona = require('./data/persona.json');
-    personas = require('./data/personas.json');
-    handlebars = require('express-handlebars');
-
+    persona = require('./data/persona.json'),
+    personas = require('./data/personas.json'),
+    handlebars = require('express-handlebars'),
+    bodyParser = require('body-parser');
 
 Object.assign=require('object-assign')
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('handlebars', handlebars({defaultLayout: "main"}));
 app.set('view engine', 'handlebars');
 app.use('/assets', express.static('assets'));
@@ -79,13 +79,14 @@ app.get('/persona/details', function(req, res){
   res.render('persona-details', persona);
 })
 
-app.get('/create/persona', function(req, res){
+app.get('/create', function(req, res){
   res.render('create-persona');
 });
 
 // TODO implement endpoint to create new persona in mongodb
-app.post('/create/persona', function(req, res){
+app.post('/create', function(req, res){
   console.log(req.body);
+  res.redirect('/persona/details');
 });
 
 // error handling
