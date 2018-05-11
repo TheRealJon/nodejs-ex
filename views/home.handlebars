@@ -1,0 +1,13 @@
+{{!-- Maybe add horizontal nav and breadcrumbs here --}}
+
+<ul>
+
+  {{!-- iterates through each persona --}}
+  {{#each personas}}
+
+    {{!-- Access properties of each persona through 'this' keyword --}}
+    <li>{{this.name}}</li>
+
+  {{/each}}
+
+</ul>

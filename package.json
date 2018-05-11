@@ -7,30 +7,35 @@
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
     "mocha": "^2.4.5",
     "mongodb": "^2.1.16",
     "morgan": "^1.7.0",
     "object-assign": "4.1.0",
-    "yarn": "^1.6.0"
+    "patternfly": "^3.46.0"
   },
   "engine": {
     "node": "*",
     "npm": "*"
   },
   "scripts": {
-    "build-client": "(cd client && yarn && yarn run build)",
+    "watch-less": "less-watch-compiler ./styles ./assets/css main.less",
+    "build": "lessc ./styles/main.less ./assets/css/main.css",
     "start": "node server.js",
     "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js",
-    "postinstall": "npm run build-client"
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "http://github.com/TheRealJon/personae-gratae.git"
   },
   "author": "Jonathan Jackson <jonjacks@redhat.com>",
-  "license": "CC-BY-1.0",
   "bugs": {
     "url": "http://github.com/TheRealJon/personae-gratae/issues"
   },
-  "homepage": "http://github.com/TheRealJon/personae-gratae"
+  "homepage": "http://github.com/TheRealJon/personae-gratae",
+  "devDependencies": {
+    "less": "^3.0.4",
+    "less-watch-compiler": "^1.11.3"
+  }
 }

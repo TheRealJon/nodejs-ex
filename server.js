@@ -4,11 +4,15 @@ var express = require('express'),
     morgan  = require('morgan'),
     path = require('path');
     persona = require('./data/persona.json');
+    personas = require('./data/personas.json');
+    handlebars = require('express-handlebars');
 
 
 Object.assign=require('object-assign')
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.engine('handlebars', handlebars({defaultLayout: "main"}));
+app.set('view engine', 'handlebars');
+app.use('/assets', express.static('assets'));
 app.use(morgan('combined'))
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -49,24 +53,35 @@ var initDb = function(callback) {
       callback(err);
       return;
     }
-
     db = conn;
     dbDetails.databaseName = db.databaseName;
     dbDetails.url = mongoURLLabel;
     dbDetails.type = 'MongoDB';
-
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
 
 
 app.get('/', function (req, res) {
-  res.render('index.html')
+  // sends list of dummy personas
+  res.render('home', {personas: personas});
 });
 
-app.get('/api/persona/:personaId', function(req, res){
-  res.header("Access-Control-Allow-Origin", "*");
-  return res.json(persona);
+// TODO add id url param and get from mongodb
+app.get('/persona/card', function(req, res){
+  // TODO retrieve persona from mongodb
+  res.render('persona-card', persona);
+});
+
+// TODO add id url param and get from mongodb
+app.get('/persona/details', function(req, res){
+  // TODO retrieve persona from mongodb
+  res.render('persona-details', persona);
+})
+
+// TODO implement endpoint to create new persona in mongodb
+app.post('/create', function(req, res){
+
 });
 
 // error handling
