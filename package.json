@@ -19,8 +19,8 @@
     "npm": "*"
   },
   "scripts": {
-    "watch-less": "less-watch-compiler ./styles ./assets/css main.less",
-    "build": "lessc ./styles/main.less ./assets/css/main.css",
+    "watch-less": "node ./bin/watch-less.js",
+    "build": "bash ./bin/build.sh",
     "start": "node server.js",
     "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js",
     "postinstall": "npm run build"
