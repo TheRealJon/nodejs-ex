@@ -1,5 +1,26 @@
 {{!-- Maybe add horizontal nav and breadcrumbs here --}}
 
-<h1>
-  pf-card for {{name}}'s persona
-</h1>
+<div class="container-fluid">
+
+    <div class="row">
+    <ol class="breadcrumb col-xs-12">
+      <li>
+        <a href="#0">Back to Persona List</a>
+      </li>
+      <li class="active">
+        <strong>Persona Details:
+          <b>{{ name }}</b>
+        </strong>
+      </li>
+    </ol>
+  </div>
+  <!-- breadcrumb row -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>
+        pf-card for {{name}}'s persona
+      </h3>
+    </div>
+  </div>
+</div>
