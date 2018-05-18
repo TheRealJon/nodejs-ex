@@ -6,7 +6,9 @@
 @import '../node_modules/patternfly/dist/less/patternfly.less';
 @import '../node_modules/patternfly/dist/less/patternfly-additions.less';
 
-// stuff
+img {
+  max-width: 100%;
+}
 .list-view-pf-left img {
   max-width: 2em;
 }
@@ -17,8 +19,8 @@
                   "roles quote quote  "
                   "skills-title success-title dangers-title"
                   "skills success dangers"
-                  "name-title day-title network-title"
-                  "name day network";
+                  "id-title day-title network-title"
+                  "id day network";
   grid-template-columns: 1fr 2fr 2fr; 
   grid-column-gap: 1em;
   > * {
@@ -26,16 +28,52 @@
   }
 }
 
+.pg-persona--card {
+  grid-template:  
+  "id"
+  "roles"
+  "quote"
+  "skills-title"
+  "skills" 
+  "success-title"
+  "success"
+  "dangers-title"
+  "dangers"
+  "day-title"
+  "day"
+  "network-title"
+  "network";
+grid-template-columns: 1fr; 
+grid-column-gap: .5em;
+border: 1px solid @color-pf-black-300;
+padding: 1em;
+
+  > * {
+    background-color: transparent;
+  }
+
+  h3 {
+    font-size: 1em;
+    font-color: @color-pf-black-300;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
 .pg-title {
   align-self: end;
   background-color: inherit;
 }
+.pg-title--card {
+  font-size: 1em;
+}
+
 .pg-title--roles {
   grid-area: roles-title;
 }
 .pg-title--quote {
   grid-area: quote-title;
 }
+
 .pg-title--skills {
   grid-area: skills-title;
 }
@@ -45,8 +83,8 @@
 .pg-title--dangers {
   grid-area: dangers-title;
 }
-.pg-title--name {
-  grid-area: name-title;
+.pg-title--id {
+  grid-area: id-title;
 }
 .pg-title--day {
   grid-area: day-title;
@@ -69,12 +107,22 @@
 .pg-dangers {
   grid-area: dangers;
 }
-.pg-name {
-  grid-area: name;
+.pg-id {
+  grid-area: id;
 }
 .pg-day {
   grid-area: day;
 }
 .pg-network {
   grid-area: network;
+}
+
+.pg-id__avatar {
+  background: transparent;
+}
+.pg-id__avatar img {
+  border-radius: 50%;
+}
+.pg-id__avatar--card img {
+  width: 3em;
 }
