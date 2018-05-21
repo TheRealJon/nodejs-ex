@@ -11,15 +11,17 @@
     "mocha": "^2.4.5",
     "mongodb": "^2.1.16",
     "morgan": "^1.7.0",
+    "multer": "^1.3.0",
     "object-assign": "4.1.0",
-    "patternfly": "^3.46.0"
+    "patternfly": "^3.46.0",
+    "uuid": "^3.2.1"
   },
   "engine": {
     "node": "*",
     "npm": "*"
   },
   "scripts": {
-    "build": "cp -r ./node_modules/patternfly/dist/fonts ./assets; cp -r ./node_modules/patternfly/dist/img ./assets; lessc --include-path=node_modules:node_modules/patternfly/node_modules ./styles/main.less ./assets/css/main.css;",
+    "build": "cp -r ./node_modules/patternfly/dist/fonts ./build/assets; cp -r ./node_modules/patternfly/dist/img ./build/assets; lessc --include-path=node_modules:node_modules/patternfly/node_modules ./src/styles/main.less ./build/assets/css/main.css;",
     "start": "node server.js",
     "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js",
     "postinstall": "npm run build"

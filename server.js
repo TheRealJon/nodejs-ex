@@ -1,31 +1,42 @@
 //  OpenShift sample Node application
 const express = require('express'),
-    app     = express(),
-    morgan  = require('morgan'),
-    persona = require('./data/persona.json'),
-    personas = require('./data/personas.json'),
+    avatarStorage = require('./server/avatarStorage'),
+    imgFilter = require('./server/imgFilter'),
     handlebars = require('express-handlebars'),
-    bodyParser = require('body-parser');
+    navItems = require('./server/navItems'),
+    morgan  = require('morgan'),
+    mongodb = require('mongodb');
+    multer = require('multer'),
+    path    = require('path'),
+    app     = express(),
+    upload = multer({storage: avatarStorage, fileFilter: imgFilter });
 
 Object.assign=require('object-assign')
 
 // Use handlebars template engine
-app.engine('handlebars', handlebars({defaultLayout: "main"}));
+app.set('views', __dirname+'/src/views');
+app.engine('handlebars', handlebars({layoutsDir: 'src/views/layouts', defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-// Serve static files from assets folder
-app.use('/assets', express.static('assets'));
+// Serve static files from specific folders folder
+app.use('/assets', express.static('./build/assets'));
+app.use('/avatars', express.static('./data/avatars'));
 
 // Server logging
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
-// Required to parse form data into request body
-app.use(bodyParser.urlencoded({ extended: true }));
+// middleware for nav items
+app.use(function(req, res, next){
+  navItems.forEach(function(item){
+    item.active = req.path.match(item.pattern) ? true : false;
+  });
+  next();
+});
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
-    mongoURLLabel = "";
+    mongoURLLabel = '';
 
 if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
   var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
@@ -52,7 +63,6 @@ var db = null,
 var initDb = function(callback) {
   if (mongoURL == null) return;
 
-  var mongodb = require('mongodb');
   if (mongodb == null) return;
 
   mongodb.connect(mongoURL, function(err, conn) {
@@ -64,129 +74,73 @@ var initDb = function(callback) {
     dbDetails.databaseName = db.databaseName;
     dbDetails.url = mongoURLLabel;
     dbDetails.type = 'MongoDB';
-    console.log('Connected to MongoDB at: %s', mongoURL);
+    console.log('Connected to MongoDB at: %s', dbDetails.url);
   });
 };
 
 // TODO break out route handlers into separate js files for organization
 
 app.get('/', function (req, res) {
-  navItems = [
-    {
-      active: true,
-      path: "/",
-      name: "Persona List"
-    },
-    {
-      active: false,
-      path: "/persona/card",
-      name: "Persona Card"
-    },
-    {
-      active: false,
-      path: "/persona/details",
-      name: "Persona Details"
-    },
-    {
-      active: false,
-      path: "/create",
-      name: "Add/Edit persona"
-    },
-  ];
-  res.render('home', {personas, navItems});
+  db.collection('personas').find({}).toArray(function(err, result){
+    if (err) throw err
+    personas = result;
+    console.log('All personas successfully loaded');
+    res.render('home', {personas: result, navItems});
+  });
 });
 
-// TODO add id url param and get from mongodb
-app.get('/persona/card', function(req, res){
-  // TODO retrieve persona from mongodb
-  navItems = [
-    {
-      active: false,
-      path: "/",
-      name: "Persona List"
-    },
-    {
-      active: true,
-      path: "/persona/card",
-      name: "Persona Card"
-    },
-    {
-      active: false,
-      path: "/persona/details",
-      name: "Persona Details"
-    },
-    {
-      active: false,
-      path: "/create",
-      name: "Add/Edit persona"
-    },
-  ];
-  res.render('persona-card', {persona, navItems});
+app.get('/persona/:id/card', function(req, res){
+  var id = new mongodb.ObjectID(req.params.id);
+  db.collection('personas').find({ _id: id }).toArray(function(err, result){
+    if(err) throw err;
+    if(result.length > 0){
+      res.render('persona-card', {persona: result[0], navItems});
+    } else {
+      res.render('404');
+    }
+  });
 });
 
-// TODO add id url param and get from mongodb
-app.get('/persona/details', function(req, res){
+app.get('/persona/:id/details', function(req, res){
   // TODO retrieve persona from mongodb
-  navItems = [
-    {
-      active: false,
-      path: "/",
-      name: "Persona List"
-    },
-    {
-      active: false,
-      path: "/persona/card",
-      name: "Persona Card"
-    },
-    {
-      active: true,
-      path: "/persona/details",
-      name: "Persona Details"
-    },
-    {
-      active: false,
-      path: "/create",
-      name: "Add/Edit persona"
-    },
-  ];
-  res.render('persona-details', {persona, navItems});
+  var id = new mongodb.ObjectID(req.params.id);
+  db.collection('personas').find({ _id: id }).toArray(function(err, result){
+    if(err) throw err;
+    if(result.length > 0){
+      res.render('persona-details', {persona: result[0], navItems});
+    } else {
+      res.render('404');
+    }
+  });
 })
 
 app.get('/create', function(req, res){
-  navItems = [
-    {
-      active: false,
-      path: "/",
-      name: "Persona List"
-    },
-    {
-      active: false,
-      path: "/persona/card",
-      name: "Persona Card"
-    },
-    {
-      active: false,
-      path: "/persona/details",
-      name: "Persona Details"
-    },
-    {
-      active: true,
-      path: "/create",
-      name: "Add/Edit persona"
-    },
-  ];
   res.render('create-persona', {navItems});
 });
 
-// TODO implement endpoint to create new persona in mongodb
-app.post('/create', function(req, res){
+app.post('/create', upload.single('photo'), function(req, res){
   var persona = {};
-  Object.keys(req.body).forEach(function(key){
-    if(key !== "submit"){
-      persona[key] = req.body[key];
-    }
+  persona.name = req.body.name;
+  persona.jobTitle = req.body.jobTitle;
+  persona.keysToSuccess = req.body.keysToSuccess;
+  persona.dangers = req.body.dangers;
+  persona.quote = req.body.quote;
+  persona.network = req.body.quote;
+  persona.photo = '/avatars/' + req.file.filename;
+  persona.network = req.body.network;
+  persona.dayInTheLife = {};
+  persona.skills = [];
+  persona.dayInTheLife.summary = req.body.dayInTheLife;
+  req.body.skills.forEach(function(skill, index){
+    persona.skills.push({
+      name: skill,
+      rating: req.body.ratings[index]
+    });
   });
-  res.redirect('/persona/details');
+  db.collection('personas').insertOne(persona, function(err, res){
+    if (err) throw err;
+  });
+  res.redirect('/');
 });
 
 // error handling
