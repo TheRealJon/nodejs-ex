@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="https://robohash.org/personae gratae">
   <title>Personae Gratae</title>
 
   <link rel="stylesheet" href="/assets/css/main.css">
@@ -20,7 +21,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">
-        <img src="img/brand.svg" alt="Patternfly Demo App" />
+        <img src="/assets/img/brand.svg" alt="Patternfly Demo App" />
       </a>
     </div>
     <div class="collapse navbar-collapse navbar-collapse-1">
@@ -76,30 +77,11 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-primary">
-        {{!--
-        <li>
-          <a href="index.html">Dashboard</a>
-        </li> --}}
-        <li class="active">
-          <a href="/">Persona List</a>
-        </li>
-        <li class="">
-          <a href="/persona/card">Persona Card</a>
-        </li>
-        {{!--
-        <li class="">
-          <a href="empty.html">Empty State</a>
-        </li> --}}
-        <li class="">
-          <a href="/persona/details">Persona Details</a>
-        </li>
-        <li class="">
-          <a href="/create">Add/edit persona</a>
-        </li>
-        {{!--
-        <li class="">
-          <a href="/persona-output.html">Persona output</a>
-        </li> --}}
+        {{#each navItems}}
+          <li {{#if this.active}}class="active"{{/if}}>
+            <a href="{{this.path}}">{{this.name}}</a>
+          </li>
+        {{/each}}
       </ul>
 
     </div>
@@ -109,10 +91,7 @@
     {{{body}}}
   </div>
 
-  {{!--
-  <footer>
-    Footer (if needed);
-  </footer> --}}
+
 </body>
 
 </html>

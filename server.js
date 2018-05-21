@@ -9,11 +9,18 @@ const express = require('express'),
 
 Object.assign=require('object-assign')
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// Use handlebars template engine
 app.engine('handlebars', handlebars({defaultLayout: "main"}));
 app.set('view engine', 'handlebars');
+
+// Serve static files from assets folder
 app.use('/assets', express.static('assets'));
+
+// Server logging
 app.use(morgan('combined'))
+
+// Required to parse form data into request body
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -61,31 +68,124 @@ var initDb = function(callback) {
   });
 };
 
+// TODO break out route handlers into separate js files for organization
 
 app.get('/', function (req, res) {
-  // sends list of dummy personas
-  res.render('home', {personas: personas});
+  navItems = [
+    {
+      active: true,
+      path: "/",
+      name: "Persona List"
+    },
+    {
+      active: false,
+      path: "/persona/card",
+      name: "Persona Card"
+    },
+    {
+      active: false,
+      path: "/persona/details",
+      name: "Persona Details"
+    },
+    {
+      active: false,
+      path: "/create",
+      name: "Add/Edit persona"
+    },
+  ];
+  res.render('home', {personas, navItems});
 });
 
 // TODO add id url param and get from mongodb
 app.get('/persona/card', function(req, res){
   // TODO retrieve persona from mongodb
-  res.render('persona-card', persona);
+  navItems = [
+    {
+      active: false,
+      path: "/",
+      name: "Persona List"
+    },
+    {
+      active: true,
+      path: "/persona/card",
+      name: "Persona Card"
+    },
+    {
+      active: false,
+      path: "/persona/details",
+      name: "Persona Details"
+    },
+    {
+      active: false,
+      path: "/create",
+      name: "Add/Edit persona"
+    },
+  ];
+  res.render('persona-card', {persona, navItems});
 });
 
 // TODO add id url param and get from mongodb
 app.get('/persona/details', function(req, res){
   // TODO retrieve persona from mongodb
-  res.render('persona-details', persona);
+  navItems = [
+    {
+      active: false,
+      path: "/",
+      name: "Persona List"
+    },
+    {
+      active: false,
+      path: "/persona/card",
+      name: "Persona Card"
+    },
+    {
+      active: true,
+      path: "/persona/details",
+      name: "Persona Details"
+    },
+    {
+      active: false,
+      path: "/create",
+      name: "Add/Edit persona"
+    },
+  ];
+  res.render('persona-details', {persona, navItems});
 })
 
 app.get('/create', function(req, res){
-  res.render('create-persona');
+  navItems = [
+    {
+      active: false,
+      path: "/",
+      name: "Persona List"
+    },
+    {
+      active: false,
+      path: "/persona/card",
+      name: "Persona Card"
+    },
+    {
+      active: false,
+      path: "/persona/details",
+      name: "Persona Details"
+    },
+    {
+      active: true,
+      path: "/create",
+      name: "Add/Edit persona"
+    },
+  ];
+  res.render('create-persona', {navItems});
 });
 
 // TODO implement endpoint to create new persona in mongodb
 app.post('/create', function(req, res){
-  console.log(req.body);
+  var persona = {};
+  Object.keys(req.body).forEach(function(key){
+    if(key !== "submit"){
+      persona[key] = req.body[key];
+    }
+  });
   res.redirect('/persona/details');
 });
 
@@ -102,4 +202,4 @@ initDb(function(err){
 app.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 
-module.exports = app ;
+module.exports = app;
