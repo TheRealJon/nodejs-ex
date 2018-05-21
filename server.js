@@ -61,9 +61,16 @@ var db = null,
     dbDetails = new Object();
 
 var initDb = function(callback) {
-  if (mongoURL == null) return;
+  if (mongoURL == null) {
+    console.log("Cannot connect to MongoDB. No URL provided.");
+    return;
+  }
 
-  if (mongodb == null) return;
+
+  if (mongodb == null) {
+    console.log("Cannot connect to MongoDB. No client instance is present.");
+    return;
+  }
 
   mongodb.connect(mongoURL, function(err, conn) {
     if (err) {
