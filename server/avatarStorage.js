@@ -4,7 +4,7 @@ const multer = require('multer'),
 
 module.exports = multer.diskStorage({
   destination: function(req, file, cb){
-    cb(null, './data/avatars');
+    cb(null, '/data');
   },
 
   filename: function(req, file, cb){

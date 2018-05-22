@@ -20,7 +20,7 @@ app.set('view engine', 'handlebars');
 
 // Serve static files from specific folders folder
 app.use('/assets', express.static('./build/assets'));
-app.use('/avatars', express.static('./data/avatars'));
+app.use('/avatars', express.static('/data'));
 
 // Server logging
 app.use(morgan('combined'));
