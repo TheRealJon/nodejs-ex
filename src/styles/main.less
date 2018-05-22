@@ -12,20 +12,43 @@ img {
 .list-view-pf-left img {
   max-width: 2em;
 }
+.breadcrumb {
+  background-color: inherit;
+}
 
 .pg-persona {
   display:grid;
-  grid-template:  "roles-title quote-title quote-title  "
-                  "roles quote quote  "
-                  "skills-title success-title dangers-title"
-                  "skills success dangers"
-                  "id-title day-title network-title"
-                  "id day network";
-  grid-template-columns: 1fr 2fr 2fr; 
-  grid-column-gap: 1em;
+  grid-template:  "roles-title quote-title"
+                  "roles quote  "
+                  "skills-title day-title "
+                  "skills day "
+                  "dangers-title success-title "
+                  "dangers success"
+                  "id-title network-title"
+                  "id network";
+  grid-template-columns: 1fr 1fr; 
+  grid-column-gap: .5em;
   > * {
-      background-color: @color-pf-black-150;
+      background-color: @color-pf-black-100;
   }
+}
+
+@media (min-width: 800px) {
+  .pg-persona {
+    display:grid;
+    grid-template:  "roles-title quote-title quote-title  "
+                    "roles quote quote  "
+                    "skills-title success-title dangers-title"
+                    "skills success dangers"
+                    "id-title day-title network-title"
+                    "id day network";
+    grid-template-columns: 1fr 2fr 2fr; 
+    grid-column-gap: 1em;
+    // > * {
+    //     background-color: @color-pf-black-150;
+    // }
+  }
+    
 }
 
 .pg-persona--card {
