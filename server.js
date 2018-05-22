@@ -1,6 +1,6 @@
 //  OpenShift sample Node application
 const express = require('express'),
-    avatarStorage = require('./server/avatarStorage'),
+    photoStorage = require('./server/photoStorage'),
     imgFilter = require('./server/imgFilter'),
     handlebars = require('express-handlebars'),
     navItems = require('./server/navItems'),
@@ -9,7 +9,7 @@ const express = require('express'),
     multer = require('multer'),
     path    = require('path'),
     app     = express(),
-    upload = multer({storage: avatarStorage, fileFilter: imgFilter });
+    upload = multer({storage: photoStorage, fileFilter: imgFilter });
 
 Object.assign=require('object-assign')
 
@@ -20,7 +20,7 @@ app.set('view engine', 'handlebars');
 
 // Serve static files from specific folders folder
 app.use('/assets', express.static('./build/assets'));
-app.use('/avatars', express.static('/data'));
+// app.use('/photos', express.static('/data'));
 
 // Server logging
 app.use(morgan('combined'));
@@ -125,7 +125,7 @@ app.get('/create', function(req, res){
   res.render('create-persona', {navItems});
 });
 
-app.post('/create', upload.single('photo'), function(req, res){
+app.post('/create', upload.single(), function(req, res){
   var persona = {};
   persona.name = req.body.name;
   persona.jobTitle = req.body.jobTitle;
@@ -133,7 +133,7 @@ app.post('/create', upload.single('photo'), function(req, res){
   persona.dangers = req.body.dangers;
   persona.quote = req.body.quote;
   persona.network = req.body.quote;
-  persona.photo = '/avatars/' + req.file.filename;
+  persona.photo = 'https://robohash.org/' + persona.name + '?bgset=any';
   persona.network = req.body.network;
   persona.dayInTheLife = {};
   persona.skills = [];
